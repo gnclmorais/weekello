@@ -43,7 +43,7 @@ function callback(req, res) {
   var verifier = query.oauth_verifier
 
   oa.getOAuthAccessToken(token, tokenSecret, verifier, function (error, accessToken, accessTokenSecret, results) {
-    /*
+/*
     oa.getProtectedResource("https://api.trello.com/1/members/me", "GET", accessToken, accessTokenSecret, function (error, data, response) {
       serveClosingPage(res)
     })
@@ -51,9 +51,22 @@ function callback(req, res) {
 
     oa.post("https://api.trello.com/1/boards", accessToken, accessTokenSecret, {
       name: 'Weekello Test'
-    }, null, function (error, data, response) {
+    }, null, function (error, boardStr, response) {
+      var board = JSON.parse(boardStr)
+      var boardId = board.id
+      console.log('boardId:', boardId, typeof boardId)
+
+      oa.post("https://api.trello.com/1/lists", accessToken, accessTokenSecret, {
+        name: 'Week 1',
+        idBoard: boardId,
+        pos: 'bottom',
+      }, null, function (error, list, response) {
+        console.log('list:', list)
+      })
+
       serveClosingPage(res)
     })
+
   })
 }
 
