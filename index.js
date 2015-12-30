@@ -56,21 +56,8 @@ function callback(req, res) {
     }, null, function (error, boardStr, response) {
       var board = JSON.parse(boardStr)
       var boardId = board.id
-      console.log('boardId:', boardId, typeof boardId)
-
 
       createLists(boardId, dateToWeekNames('2016'), accessToken, accessTokenSecret)
-/*
-      dateToWeekNames('2016').forEach(function (name) {
-        oa.post("https://api.trello.com/1/lists", accessToken, accessTokenSecret, {
-          name: name,
-          idBoard: boardId,
-          pos: 'bottom',
-        }, null, function (error, list, response) {
-          console.log('list:', list)
-        })
-      })
-*/
 
       serveClosingPage(res)
     })
