@@ -43,7 +43,15 @@ function callback(req, res) {
   var verifier = query.oauth_verifier
 
   oa.getOAuthAccessToken(token, tokenSecret, verifier, function (error, accessToken, accessTokenSecret, results) {
+    /*
     oa.getProtectedResource("https://api.trello.com/1/members/me", "GET", accessToken, accessTokenSecret, function (error, data, response) {
+      serveClosingPage(res)
+    })
+*/
+
+    oa.post("https://api.trello.com/1/boards", accessToken, accessTokenSecret, {
+      name: 'Weekello Test'
+    }, null, function (error, data, response) {
       serveClosingPage(res)
     })
   })
