@@ -30,7 +30,7 @@ function login(req, res) {
   oa.getOAuthRequestToken(function (error, token, tokenSecret, results) {
     oauthSecrets[token] = tokenSecret
     res.writeHead(302, {
-      'Location': authorizeUrl + '?oauth_token=' + token + '&name=' + appName
+      'Location': authorizeUrl + '?oauth_token=' + token + '&name=' + appName + '&scope=read,write'
     })
     res.end()
   })
